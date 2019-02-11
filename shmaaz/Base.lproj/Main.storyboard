@@ -67,6 +67,7 @@
                         <outlet property="partyButtons" destination="b2q-UL-mzc" id="dv0-X8-tHl"/>
                         <outlet property="partyButtons2" destination="LNC-Xj-3w1" id="UiU-F1-bua"/>
                         <outlet property="promptsView" destination="2uM-HG-zr8" id="R5w-Wm-tZu"/>
+                        <outlet property="whosNextButton" destination="FDv-sY-90I" id="yuo-cU-3Fh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
