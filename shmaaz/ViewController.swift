@@ -21,94 +21,93 @@ class ViewController: UIViewController {
     let futureQuestionList2 = ["what would you like to be doing","What are you planing to get done by", "what are your plans for the next", "where do you see your self in"]
     let timeList = ["day", "week", "month", "year"]
     
+    // outlets for our buttons so as to change thier appearances properties
     @IBOutlet weak var partyButtons: UIButton!
     @IBOutlet weak var partyButtons2: UIButton!
     @IBOutlet weak var whosNextButton: UIButton!
+    // label to display our prompt messages
     @IBOutlet weak var promptsView: UILabel!
-    @IBAction func allButtons(_ sender: UIButton) {
+    @IBAction func dreamOfTheFuture(_ sender: UIButton) {
+        // conditional statment to make questions more relative and memorable as to time
+        if randomQuestionIndex == 0 || randomQuestionIndex == 1 {
+            randomTimeIndex = Int.random(in: 0...1)
+            // conditional statment to add the plural s appropriately
+            if randomTimeIndicator != 1 {
+                promptsView.text = "\(futureQuestionList2[randomQuestionIndex]) \(randomTimeIndicator) \(timeList[randomTimeIndex])s from now?"
+            }
+            else {
+                promptsView.text = "\(futureQuestionList2[randomQuestionIndex]) \(randomTimeIndicator) \(timeList[randomTimeIndex]) from now?"
+            }
+        }
+        else {
+            randomTimeIndex = Int.random(in: 2...3)
+            // conditional statment to add the plural s appropriately
+            if randomTimeIndicator != 1 {
+                promptsView.text = "\(futureQuestionList2[randomQuestionIndex]) \(randomTimeIndicator) \(timeList[randomTimeIndex])s from now?"
+            }
+            else {
+                promptsView.text = "\(futureQuestionList2[randomQuestionIndex]) \(randomTimeIndicator) \(timeList[randomTimeIndex]) from now?"
+            }
+            
+        }
+        hideButtons(true)
+        whosNextButton.isEnabled = true
+    }
+    
+    @IBAction func reflectOnThePast(_ sender: UIButton) {
+        // conditional statment to make questions more relative and memorable as to time
+        if randomQuestionIndex == 0 || randomQuestionIndex == 1 {
+            randomTimeIndex = Int.random(in: 0...1)
+            // conditional statment to add the plural s appropriately
+            if randomTimeIndicator != 1 {
+                promptsView.text = "\(pastQuestionList[randomQuestionIndex]) \(randomTimeIndicator) \(timeList[randomTimeIndex])s ago?"
+            }
+            else {
+                promptsView.text = "\(pastQuestionList[randomQuestionIndex]) \(randomTimeIndicator) \(timeList[randomTimeIndex]) ago?"
+            }
+        }
+        else {
+            randomTimeIndex = Int.random(in: 2...3)
+            // conditional statment to add the plural s appropriately
+            if randomTimeIndicator != 1 {
+                promptsView.text = "\(pastQuestionList[randomQuestionIndex]) \(randomTimeIndicator) \(timeList[randomTimeIndex])s ago?"
+            }
+            else {
+                promptsView.text = "\(pastQuestionList[randomQuestionIndex]) \(randomTimeIndicator) \(timeList[randomTimeIndex]) ago?"
+            }
+        }
+        hideButtons(true)
+        whosNextButton.isEnabled = true
+    }
+    
+    @IBAction func whosNext(_ sender: UIButton) {
         // set random numberes appropriately
         randomQuestionIndex = Int.random(in: 0..<pastQuestionList.count)
         randomTimeIndex = Int.random(in: 0..<timeList.count)
         randomNextPlayerNumber = Int.random(in: 1...10)
         randomTimeIndicator = Int.random(in: 1...5)
-        // conditional statement to keep questions more relative and memorable
-        if randomQuestionIndex == 0 || randomQuestionIndex == 1 {
-            randomTimeIndex = Int.random(in: 0...1)
-            // conditional statment to recognise which button has been pressed
-            if sender.tag == 1 {
-                dreamOfThefuture(randomQuestionIndex, randomTimeIndex)
-            }
-            else if sender.tag == 2 {
-                reflectOnThePast(randomQuestionIndex, randomTimeIndex)
-            }
-            else {
-                whosNext(randomNextPlayerNumber)
-            }
-        }
-        else {
-            randomTimeIndex = Int.random(in: 2...3)
-            // conditional statment to recognise which button has been pressed
-            if sender.tag == 1 {
-                dreamOfThefuture(randomQuestionIndex, randomTimeIndex)
-            }
-            else if sender.tag == 2 {
-                reflectOnThePast(randomQuestionIndex, randomTimeIndex)
-            }
-            else {
-                whosNext(randomNextPlayerNumber)
-            }
-        }
+        // calling hideButtons func to make the other two buttons appear
+        hideButtons(false)
+        // selecting the next player
+        promptsView.text = "Next player is number \(randomNextPlayerNumber) to the right"
+        whosNextButton.setTitle("Who's Next?", for: .normal)
+        // disable the whosNextButton
+        whosNextButton.isEnabled = false
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        // set the intial wording for promptsView and whosNextButton
         promptsView.text = "Let's partyyy 🥳"
-        hideButtons()
         whosNextButton.setTitle("Let's do it👻", for: .normal)
+        hideButtons(true)
     }
     
-    // this function is for Dream of the future button
-    func dreamOfThefuture (_ index1:Int, _ index2:Int) {
-        // conditional statment to add the plural s appropriately
-        if randomTimeIndicator != 1 {
-            promptsView.text = "\(futureQuestionList2[index1]) \(randomTimeIndicator) \(timeList[index2])s from now?"
-        }
-        else {
-            promptsView.text = "\(futureQuestionList2[index1]) \(randomTimeIndicator) \(timeList[index2]) from now?"
-        }
-        // calling hideButtons function to hide both dream of the future and reflect on the past buttons
-        hideButtons()
-        whosNextButton.isHidden = false
-        whosNextButton.setTitle("Who's Next?", for: .normal)
-    }
-    
-    // this function is for reflect on the past button
-    func reflectOnThePast (_ index1:Int, _ index2:Int) {
-        // conditional statment to add the plural s appropriately
-        if randomTimeIndicator != 1 {
-            promptsView.text = "\(pastQuestionList[index1]) \(randomTimeIndicator) \(timeList[index2])s ago?"
-        }
-        else {
-        promptsView.text = "\(pastQuestionList[index1]) \(randomTimeIndicator) \(timeList[randomTimeIndex]) ago?"
-        }
-        // calling hideButtons function to hide both dream of the future and reflect on the past buttons
-        hideButtons()
-        whosNextButton.isHidden = false
-        whosNextButton.setTitle("Who's Next?", for: .normal)
-    }
-    
-    // this function is to pick the next player randomly
-    func whosNext (_ random:Int) {
-        partyButtons.isHidden = false
-        partyButtons2.isHidden = false
-        promptsView.text = "Next player is number \(random) to the right"
-        whosNextButton.isHidden = true
-    }
-    
-    func hideButtons () {
-        partyButtons.isHidden = true
-        partyButtons2.isHidden = true
+    // a func resposible for hiding and appearing of two of our buttons
+    func hideButtons (_ state : Bool) {
+        partyButtons.isHidden = state
+        partyButtons2.isHidden = state
     }
 }
+
 
