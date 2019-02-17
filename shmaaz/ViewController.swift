@@ -48,7 +48,6 @@ class ViewController: UIViewController {
             else {
                 promptsView.text = "\(futureQuestionList2[randomQuestionIndex]) \(randomTimeIndicator) \(timeList[randomTimeIndex]) from now?"
             }
-            
         }
         hideButtons(true)
         whosNextButton.isEnabled = true

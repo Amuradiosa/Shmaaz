@@ -1,0 +1,1 @@
+An entertaining app generating questions about the past and future to create a fun atmosphere in friends party.
